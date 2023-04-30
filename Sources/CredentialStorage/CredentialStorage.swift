@@ -14,17 +14,17 @@ public struct CredentialStore {
     ///     - user: The user owning the auth token. This is usually the username or email belonging to the password. For auth tokens, you can use whatever description you want.
     ///     - url: The `URL` associated with the auth token
     ///     - persistence: How long the token should be persisted. When this is `nil`, the default store will use `.permanent`
-    var storeToken: (_ token: String, _ user: String, _ url: URL, _ persistence: URLCredential.Persistence?) throws -> Void
+    public var storeToken: (_ token: String, _ user: String, _ url: URL, _ persistence: URLCredential.Persistence?) throws -> Void
 
     /// Removes a token for a `URL`
     /// - Parameters
     ///     - url: THe `URL` of the associated auth token
-    var removeToken: (_ url: URL) throws -> Void
+    public var removeToken: (_ url: URL) throws -> Void
 
     /// Retrieves an auth token for a `URL`
     /// - Parameters
     ///     - url: The `URL` associated with the auth token
-    var token: (_ url: URL) throws -> String?
+    public var token: (_ url: URL) throws -> String?
 }
 
 private extension CredentialStore {
@@ -42,7 +42,7 @@ private extension CredentialStore {
     }
 }
 
-extension CredentialStore {
+public extension CredentialStore {
 
     /// Uses Apple's `URLCredentialStorage` to store and retreive `URLCredential` instances. This assumes the urls are using SSL (https).
     static var `default`: Self {
