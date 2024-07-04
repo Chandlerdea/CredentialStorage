@@ -46,7 +46,7 @@ extension CredentialStore {
 
 public extension CredentialStore {
 
-    /// Uses Apple's `URLCredentialStorage` to store and retreive `URLCredential` instances. This assumes the urls are using SSL (https).
+    /// Uses Apple's `URLCredentialStorage` to store and retrieve `URLCredential` instances. This assumes the urls are using SSL (https).
     static var `default`: Self {
         let storage = URLCredentialStorage.shared
         return .init(
@@ -86,6 +86,18 @@ public extension CredentialStore {
                 }
                 return credentials.compactMapValues(\.password)
             }
+        )
+    }
+
+    static func mock(
+        storeToken: @escaping (String, String, URL, Bool, URLCredential.Persistence?) throws -> Void,
+        removeTokens: @escaping (URL) throws -> Void,
+        tokens: @escaping (URL) throws -> [String: String]
+    ) -> Self {
+        .init(
+            storeToken: storeToken, 
+            removeTokens: removeTokens,
+            tokens: tokens
         )
     }
 }
