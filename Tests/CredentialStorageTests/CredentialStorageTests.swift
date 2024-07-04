@@ -8,7 +8,7 @@ final class CredentialStorageTests: XCTestCase {
     let fileURL = URL(string: "file:///usr/bin")!
 
     var protectionSpace: URLProtectionSpace {
-        try! CredentialStore.protectionSpace(for: supportedURL.host()!, url: supportedURL)
+        try! CredentialStore.protectionSpace(for: supportedURL.host!, url: supportedURL)
     }
 
     var storage: URLCredentialStorage {
@@ -31,7 +31,7 @@ final class CredentialStorageTests: XCTestCase {
     override class func tearDown() {
         super.tearDown()
         let supportedURL = URL(string: "https://www.google.com")!
-        let protectionSpace = try! CredentialStore.protectionSpace(for: supportedURL.host()!, url: supportedURL)
+        let protectionSpace = try! CredentialStore.protectionSpace(for: supportedURL.host!, url: supportedURL)
         if let allCredentials = URLCredentialStorage.shared.credentials(for: protectionSpace) {
             for (_, credential) in allCredentials {
                 URLCredentialStorage.shared.remove(credential, for: protectionSpace)
